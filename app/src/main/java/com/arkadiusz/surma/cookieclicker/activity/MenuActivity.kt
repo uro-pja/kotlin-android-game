@@ -43,7 +43,6 @@ class MenuActivity : AppCompatActivity(), KodeinAware {
         }
 
         rankingButton.setOnClickListener {
-
             val intent = Intent(this, RankingActivity::class.java)
             startActivity(intent)
         }
