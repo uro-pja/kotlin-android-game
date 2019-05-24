@@ -2,6 +2,9 @@ package com.arkadiusz.surma.cookieclicker.activity
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.arkadiusz.surma.cookieclicker.R
@@ -20,6 +23,7 @@ import com.arkadiusz.surma.cookieclicker.infrastructure.addOnItemClickListener
 import com.arkadiusz.surma.cookieclicker.model.*
 import com.arkadiusz.surma.cookieclicker.model.exceptions.InsufficientFundsException
 import com.google.android.material.snackbar.Snackbar
+import java.lang.Exception
 
 class GameActivity : AppCompatActivity(), KodeinAware {
     override val kodein by kodein()
@@ -32,10 +36,26 @@ class GameActivity : AppCompatActivity(), KodeinAware {
         refreshPointsInView()
         registerUpgradeAdapter()
 
-        button_cookie.setOnClickListener { view ->
-            view.animate().rotationBy(1F).setDuration(1 * 100).interpolator = LinearInterpolator()
+        try {
+            val mainHandler = Handler(Looper.getMainLooper())
+            mainHandler.post(object : Runnable {
+                override fun run() {
+                    val pointsIncreased = gameStore.retrieve().increaseCounter()
+                    button_cookie.animate().rotationBy(pointsIncreased.toFloat()).setDuration(1 * 100).interpolator =
+                        LinearInterpolator()
+                    refreshPointsInView()
 
-            gameStore.retrieve().increasePoints()
+                    mainHandler.postDelayed(this, 1000)
+                }
+            })
+        } catch (e: Exception) {
+            Log.e("Error", e.message)
+        }
+
+        button_cookie.setOnClickListener { view ->
+            val pointsIncreased = gameStore.retrieve().increasePoints()
+            view.animate().rotationBy(pointsIncreased.toFloat()).setDuration(1 * 100).interpolator = LinearInterpolator()
+
             refreshPointsInView()
         }
 

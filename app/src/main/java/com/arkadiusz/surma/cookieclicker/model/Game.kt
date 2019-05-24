@@ -13,11 +13,23 @@ class Game {
     private var clickMultiplier: Int = 1
     private var timeMultiplier: Int = 0
     private var costMultiplier: Double = 1.0
+
     private var boughtUpgrades: MutableMap<String, Upgrade> = mutableMapOf()
 
-    public fun increasePoints() {
-        this.points += 1 * this.clickMultiplier
-        this.totalPoints += 1 * this.clickMultiplier
+    public fun increasePoints(): Int {
+        val points = 1 * this.clickMultiplier
+        this.points += points
+        this.totalPoints += points
+
+        return points
+    }
+
+    public fun increaseCounter(): Int {
+        val points = 1 * this.timeMultiplier
+        this.points += points
+        this.totalPoints += points
+
+        return points
     }
 
     public fun getPoints(): Int {
@@ -70,13 +82,13 @@ class Game {
         return "${this.startedAt} - ${this.points}"
     }
 
+
     fun finish() {
         this.finishedAt = LocalDateTime.now()
     }
 
-
     fun getScore(): Long {
-        return (this.totalPoints * (0.01*this.getTotalTime())).toLong()
+        return (this.totalPoints * (0.01 * this.getTotalTime())).toLong()
     }
 
     fun getTotalTime() = ChronoUnit.SECONDS.between(this.startedAt, this.finishedAt)
