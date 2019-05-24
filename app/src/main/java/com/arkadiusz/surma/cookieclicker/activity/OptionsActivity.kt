@@ -1,9 +1,10 @@
-package com.arkadiusz.surma.cookieclicker
+package com.arkadiusz.surma.cookieclicker.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.arkadiusz.surma.cookieclicker.R
 
-class OptionsActicity : AppCompatActivity() {
+class OptionsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

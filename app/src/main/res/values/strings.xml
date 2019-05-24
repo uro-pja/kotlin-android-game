@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">CookieClicker</string>
     <string name="action_settings">Settings</string>
-    <string name="clickACookie">Click a cookie</string>
+    <string name="clickACookie">Work for the people</string>
     <string name="currentPointsView">{points}</string>
     <string name="pointsIncrementorView">{points/second}</string>
     <string name="title_activity_menu">MenuActivity</string>
